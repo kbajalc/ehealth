@@ -2,13 +2,14 @@
 
 ## Project Overview
 
-This is a **C++ biomedical data collection application** for the Cooking-Hacks e-Health Sensor Platform, targeting Raspberry Pi hardware. It collects time-series sensor data and writes it to CSV files. The project also includes Arduino sketches and Python/shell utility scripts.
+This is a **C++ biomedical data collection application** for the Cooking-Hacks e-Health Sensor Platform, targeting Raspberry Pi hardware. It collects time-series sensor data and writes it to CSV files. The project also includes the official Arduino eHealth library (v2.0), Arduino sketches, Python/shell utility scripts, and full platform documentation.
 
 - **Binary**: `eHdc` (eHealth Data Collector)
 - **Version**: 0.0.13
 - **License**: GNU GPL v3
 - **Language**: C++98/C++03 (uses `-fpermissive`), Python 2 (scripts)
-- **Hardware target**: Raspberry Pi (BCM2835 ARM SoC), Arduino
+- **Hardware target**: Raspberry Pi (BCM2835 ARM SoC), Arduino Uno/Duemilanove/Mega
+- **Hardware kit**: Cooking-Hacks e-Health Sensor Platform **V1** (9 sensors, no EMG)
 
 ---
 
@@ -16,27 +17,79 @@ This is a **C++ biomedical data collection application** for the Cooking-Hacks e
 
 ```
 ehealth/
-├── src/                  # C++ source for the eHdc binary
-├── arduino/              # Arduino sketch(es)
-│   └── eHealth.ino       # Reads sensors, outputs semicolon-delimited data to serial
-├── scripts/              # Python and shell utilities
-│   ├── csv2wav.py        # Convert CSV sensor data to WAV audio
-│   ├── csv2wav.sh        # Shell wrapper for csv2wav.py (recursive)
-│   ├── eHdc-gui.py       # PyQt4 touch-screen GUI frontend
-│   ├── record.sh         # Data recording helper
-│   ├── statistic.py      # Statistical analysis on CSV output
-│   ├── statistic.sh      # Shell wrapper for statistic.py
-│   └── vid-repack.sh     # Repack h264 video to mp4
-├── configure.ac          # Autoconf configuration
-├── Makefile.am           # Automake build rules
-├── doxyfile              # Doxygen documentation config
-├── README.md             # Project README with known hardware issues
-└── COPYING               # GNU GPL v3 license
+├── src/                          # C++ source for the eHdc Raspberry Pi binary
+├── arduino/                      # Arduino content
+│   ├── eHealth.ino               # Sketch: reads sensors, outputs semicolon-delimited serial data
+│   └── libraries/                # Arduino libraries (install into Arduino IDE)
+│       ├── eHealth/              # Main eHealth library v2.0 (Libelium/Cooking Hacks)
+│       │   ├── eHealth.h/.cpp    # Sensor API — identical public interface to src/eHealth.h
+│       │   ├── eHealthDisplay.h/.cpp  # Optional LCD display support
+│       │   ├── examples/         # 20 example sketches (one per sensor/use-case)
+│       │   └── utils/            # Custom I2C implementation for Arduino
+│       ├── PinChangeInt/         # Required for SPO2/pulsioximeter sensor
+│       └── SoftwareSerial/       # Optional: for communication modules
+├── scripts/                      # Python and shell utilities
+│   ├── csv2wav.py                # Convert CSV sensor data to WAV audio
+│   ├── csv2wav.sh                # Shell wrapper for csv2wav.py (recursive)
+│   ├── eHdc-gui.py               # PyQt4 touch-screen GUI frontend
+│   ├── record.sh                 # Data recording helper
+│   ├── statistic.py              # Statistical analysis on CSV output
+│   ├── statistic.sh              # Shell wrapper for statistic.py
+│   └── vid-repack.sh             # Repack h264 video to mp4
+├── imgs/                         # Images for GUIDE.md (downloaded from projects-raspberry.com)
+│   └── download-imgs.sh          # Script to re-download all 60 images if needed
+├── CLAUDE.md                     # This file — AI assistant guide
+├── GUIDE.md                      # Full e-Health V2.0 documentation (from post.html)
+├── MANUAL.md                     # Sensor API reference manual
+├── V1-NOTES.md                   # V1 hardware errata + Arduino IDE 2.x install guide
+├── post.html                     # Saved source HTML page (projects-raspberry.com)
+├── configure.ac                  # Autoconf configuration
+├── Makefile.am                   # Automake build rules
+├── doxyfile                      # Doxygen documentation config
+├── README.md                     # Project README
+└── COPYING                       # GNU GPL v3 license
 ```
 
 ---
 
-## Build System
+## Hardware Context
+
+### Kit Version: V1
+
+The owner has the **e-Health Sensor Shield V1**, which has 9 sensors (no EMG). Key V1
+differences from the V2.0 documentation in GUIDE.md:
+
+| Sensor | V1 status |
+|--------|-----------|
+| SPO2 / Pulse oximeter | ✅ Works — Model A (no yellow sticker) |
+| Airflow | ✅ Works — identical to V2 |
+| Body temperature | ✅ Works — identical to V2 |
+| ECG | ✅ Works — no jumper needed (V1 has no ECG/EMG jumper) |
+| GSR / Skin conductance | ✅ Works — identical to V2 |
+| Patient position | ✅ Works — identical to V2 |
+| Glucometer | ✅ Works — UART shared (disconnect other UART devices first) |
+| Blood pressure | ⚠️ Works via **GLCD connector + adapter cable** (not dedicated connector) |
+| **EMG** | ❌ **Not present on V1** — skip all EMG sections in GUIDE.md |
+
+See [V1-NOTES.md](V1-NOTES.md) for full details and Arduino IDE installation instructions.
+
+---
+
+## Library Versions
+
+There are two versions of the eHealth library in this repo, targeting different platforms:
+
+| Location | Version | Platform | Notes |
+|----------|---------|----------|-------|
+| `src/eHealth.h/.cpp` | 2.0 (+Anartz Nuin) | Raspberry Pi | Uses `arduPi.h`, `Wire`, `printf` |
+| `arduino/libraries/eHealth/` | 2.0 | Arduino | Uses `Arduino.h`, custom I2C, `Serial` |
+
+Both expose an **identical public API** — same function names, same sensor set. The differences
+are internal platform adaptations only. Use `arduino/libraries/eHealth/` for Arduino IDE.
+
+---
+
+## Build System (Raspberry Pi binary)
 
 The project uses **GNU Autotools** (autoconf + automake).
 
@@ -82,8 +135,8 @@ sudo ./eHdc --bpm 200000 --ecg 200000 --count 1000 --postfix session1
 #   -v            Verbose output
 ```
 
-**Output files**: `{sensor}-{postfix}.csv` in the current directory.  
-Each CSV has two columns: `timeSpan (sec)`, `<sensor-value>`.  
+**Output files**: `{sensor}-{postfix}.csv` in the current directory.
+Each CSV has two columns: `timeSpan (sec)`, `<sensor-value>`.
 Default interval: `200000` microseconds (0.2 s). `INACTIVE = 0` disables a sensor.
 
 **Requires `sudo`** — the bcm2835 library needs direct hardware access.
@@ -116,7 +169,7 @@ Default interval: `200000` microseconds (0.2 s). `INACTIVE = 0` disables a senso
 | `TemperatureCollector.h` | `TemperatureCollector` | Corporal temperature (°C) |
 | `CsvWriter.h` | `CsvWriter` | Writes time-stamped rows to CSV file |
 | `TimeSpan.h` | `TimeSpan` | Elapsed time calculation |
-| `eHealth.h/cpp` | `eHealth` | Cooking-Hacks sensor library |
+| `eHealth.h/cpp` | `eHealth` | Cooking-Hacks sensor library (Raspberry Pi build) |
 | `arduPi.h/cpp` | — | Raspberry Pi / Arduino compatibility layer (serial, GPIO, I2C, SPI) |
 
 ### Concurrency Note
@@ -132,6 +185,41 @@ A single `pthread_mutex_t` is declared as a file-scope static in `AbstractCollec
 5. Add a CLI option in `main.cpp` (`program_options[]` + `parse_option()`).
 6. Instantiate in `CollectorFactory::create()`.
 7. Add the new `.h` file to `eHdc_SOURCES` in `Makefile.am`.
+
+---
+
+## Arduino Library Examples
+
+The `arduino/libraries/eHealth/examples/` directory contains 20 ready-to-use sketches:
+
+| Sketch | Sensor |
+|--------|--------|
+| `PulsioximeterExample` | SPO2 + BPM |
+| `ECGExampleSerial` / `ECGExampleKST` | ECG |
+| `AirFlowExampleSerial` / `AirFlowExampleKST` | Airflow |
+| `TemperatureExample` | Body temperature |
+| `GSRExampleSerial` / `GSRExampleKST` | Skin conductance |
+| `BloodPressureExample` | Blood pressure |
+| `BodyPositionExample` | Patient position |
+| `GlucometerExample` | Glucometer |
+| `EMGExampleSerial` / `EMGExampleKST` | EMG (**V2 only, skip on V1**) |
+| `SerialTerminalExample` | All sensors via serial |
+| `LCDExample` | LCD display output |
+| `AndroidAppExample` / `IphoneAppExample` | Mobile app integration |
+| `GprsSmsSendExample` | GPRS SMS |
+| `Server3GConnectionExample` | 3G cloud upload |
+| `ZigBeeCommunicationExample` | ZigBee/802.15.4 |
+
+---
+
+## Documentation Files
+
+| File | Contents |
+|------|---------|
+| `GUIDE.md` | Full sensor platform documentation converted from `post.html` (V2.0 focused) |
+| `MANUAL.md` | Sensor API reference with all library functions and code examples |
+| `V1-NOTES.md` | **Start here if using V1 hardware** — errata, differences, IDE install guide |
+| `post.html` | Original saved HTML source page from projects-raspberry.com |
 
 ---
 
@@ -189,8 +277,8 @@ When making changes, manually verify:
 ## Git Conventions
 
 - Commit messages are short, imperative-ish descriptions: `"X improved."`, `"X added."`, `"X fixed."`.
-- Development branch for AI-assisted work: `claude/add-claude-documentation-PV9DS`.
-- The `master` branch tracks the upstream remote.
+- The `master` branch is the main branch.
+- AI-assisted work branches use the pattern `claude/<description>-<id>`.
 
 ---
 
