@@ -67,8 +67,9 @@ differences from the V2.0 documentation in GUIDE.md:
 | ECG | ✅ Works — no jumper needed (V1 has no ECG/EMG jumper) |
 | GSR / Skin conductance | ✅ Works — identical to V2 |
 | Patient position | ✅ Works — identical to V2 |
-| Glucometer | ✅ Works — UART shared (disconnect other UART devices first) |
-| Blood pressure | ⚠️ Works via **GLCD connector + adapter cable** (not dedicated connector) |
+| Glucometer | ✅ Works — UART shared (disconnect other UART devices first); max 32 records; "P-C" on screen when connected |
+| Blood pressure | ⚠️ **Wrist cuff** — set SPHY jumper, call `initBloodPressureSensor(float parameter)` (live measurement, blocks until ON pressed) |
+| Patient position | ⚠️ Works — **set POS jumper** before connecting |
 | **EMG** | ❌ **Not present on V1** — skip all EMG sections in GUIDE.md |
 
 See [V1-NOTES.md](V1-NOTES.md) for full details and Arduino IDE installation instructions.
@@ -218,7 +219,8 @@ The `arduino/libraries/eHealth/examples/` directory contains 20 ready-to-use ske
 |------|---------|
 | `GUIDE.md` | Full sensor platform documentation converted from `post.html` (V2.0 focused) |
 | `MANUAL.md` | Sensor API reference with all library functions and code examples |
-| `V1-NOTES.md` | **Start here if using V1 hardware** — errata, differences, IDE install guide |
+| `V1-NOTES.md` | **Start here if using V1 hardware** — errata, full V1 API reference, GLCD display library, IDE install guide |
+| `V1-DOCS.html` | Saved Wayback Machine copy of original V1 Cooking Hacks documentation page |
 | `post.html` | Original saved HTML source page from projects-raspberry.com |
 
 ---
