@@ -7,20 +7,24 @@
 
 ---
 
-## Table of Contents
+## Contents
 
-1. [Introduction](#introduction)
-2. [Library Installation](#library-installation)
-3. [Pulse and Oxygen in Blood (SPO2)](#1-pulse-and-oxygen-in-blood-spo2)
-4. [Airflow Sensor (Breathing)](#2-airflow-sensor-breathing)
-5. [Body Temperature](#3-body-temperature)
-6. [Electrocardiogram Sensor (ECG)](#4-electrocardiogram-sensor-ecg)
-7. [Glucometer](#5-glucometer)
-8. [Galvanic Skin Response (GSR — Sweating)](#6-galvanic-skin-response-gsr--sweating)
-9. [Blood Pressure (Sphygmomanometer)](#7-blood-pressure-sphygmomanometer)
-10. [Patient Position (Accelerometer)](#8-patient-position-accelerometer)
-11. [Electromyography (EMG)](#9-electromyography-emg)
-12. [API Reference](#api-reference)
+- [Introduction](#introduction)
+- [Library Installation](#library-installation)
+
+**Sensors**
+- [1. Pulse and Oxygen in Blood (SPO2)](#1-pulse-and-oxygen-in-blood-spo2)
+- [2. Airflow Sensor (Breathing)](#2-airflow-sensor-breathing)
+- [3. Body Temperature](#3-body-temperature)
+- [4. Electrocardiogram Sensor (ECG)](#4-electrocardiogram-sensor-ecg)
+- [5. Glucometer](#5-glucometer)
+- [6. Galvanic Skin Response (GSR — Sweating)](#6-galvanic-skin-response-gsr--sweating)
+- [7. Blood Pressure (Sphygmomanometer)](#7-blood-pressure-sphygmomanometer)
+- [8. Patient Position (Accelerometer)](#8-patient-position-accelerometer)
+- [9. Electromyography (EMG)](#9-electromyography-emg) *(V2 only — not present on V1)*
+
+**Reference**
+- [API Reference](#api-reference)
 
 ---
 

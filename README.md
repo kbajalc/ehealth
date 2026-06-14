@@ -157,41 +157,25 @@ Privacy is one of the key points in this kind of applications. For this reason t
 
 ## Article Index
 
-
-- Features
-- Electrical features
-- The shield
-- e-Health PCB
-- The library
-- e-Health shield over Arduino
-- e-Health shield over Raspberry Pi
-- Sensor Platform
-- Pulse and Oxygen in Blood
-- Electrocardiogram (ECG)
-- Airflow: breathing
-- Body temperature
-- Blood pressure
-- Patient position and falls
-- Galvanic Skin Response (GSR)
-- Glucometer
-- Muscle/Electromyography sensor
-- Visualizing the data
-- LCD
-- KST: Real-time data viewing and plotting
-- Serial console
-- SmartPhone Application
-- Sending the data to the Cloud
-- Wifi
-- Bluetooth
-- Zigbee / 802.15.4
-- GPRS
-- 3G
-- Camera for Photo Diagnosis
-- Device Compatibility
-- Forum
-- Get the shields and sensors
-- Kits
-- Sensors
+- [1. Features](#1-features)
+- [2. The shield](#2-the-shield)
+- [3. The library](#3-the-library)
+  - [e-Health shield over Arduino](#e-health-shield-over-arduino)
+  - Raspberry Pi *(see [ardupi/README.md](ardupi/README.md))*
+- [4. Sensor Platform](#4-sensor-platform)
+  - [Pulse and Oxygen in Blood (SPO2)](#pulse-and-oxygen-in-blood-spo2)
+  - [Electrocardiogram (ECG)](#electrocardiogram-ecg)
+  - [Airflow: breathing](#airflow-breathing)
+  - [Body temperature](#body-temperature)
+  - [Blood pressure](#blood-pressure)
+  - [Patient position and falls](#patient-position-and-falls)
+  - [Galvanic Skin Response (GSR)](#galvanic-skin-response-gsr)
+  - Glucometer *(not converted from source HTML)*
+  - Muscle/Electromyography *(not converted — V2 only, not on V1)*
+- 5. Visualizing the data *(not converted from source HTML)*
+- 6. Sending the data to the Cloud *(not converted from source HTML)*
+- 7. Device Compatibility *(not converted from source HTML)*
+- [Quick Solutions (FAQ)](#quick-solutions-to-questions-related-to-e-health-sensor-platform)
 
 
 ## 1. Features 
@@ -216,7 +200,7 @@ The pack we are going to use in this tutorial is the eHealth Sensor platform fro
 
 The e-Health shield can be powered by the PC or by an external power supply. Some of the USB ports on computers are not able to give all the current the module needs to work, if your module have problems when it work, you can use an external power supply (12V – 2A) on the Arduino/RasberryPi.
 
-**The shields:**
+## 2. The shield
 
 - Get Arduino
 - Get the e-Health sensor shield
