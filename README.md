@@ -172,9 +172,9 @@ Privacy is one of the key points in this kind of applications. For this reason t
   - [Galvanic Skin Response (GSR)](#galvanic-skin-response-gsr)
   - Glucometer *(not converted from source HTML)*
   - Muscle/Electromyography *(not converted — V2 only, not on V1)*
-- 5. Visualizing the data *(not converted from source HTML)*
-- 6. Sending the data to the Cloud *(not converted from source HTML)*
-- 7. Device Compatibility *(not converted from source HTML)*
+- [5. Visualizing the data]() *(not converted from source HTML)*
+- [6. Sending the data to the Cloud]() *(not converted from source HTML)*
+- [7. Device Compatibility]() *(not converted from source HTML)*
 - [Quick Solutions (FAQ)](#quick-solutions-to-questions-related-to-e-health-sensor-platform)
 
 
