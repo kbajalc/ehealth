@@ -533,15 +533,21 @@
 			F = !digitalRead(8);
 			G = !digitalRead(7);
 			
-			digito[i] = segToNumber(A, B, C ,D ,E, F,G);    
-			delayMicroseconds(300); //300 microseconds			
-			
-		}
+			digito[i] = segToNumber(A, B, C ,D ,E, F,G);
 
-			SPO2 = 10 * digito[25] + digito[20];
-			BPM  = 100 * digito[19] + 10 * digito[2] + digito[0];
-		
-                         
+            // FIX: 300 ms too fast to read SPO2
+			delayMicroseconds(300 + 10);	
+
+            // if (digito[i] == 0) {
+            //     Serial.print(".");
+            // } else {	
+			//     Serial.print(digito[i]);
+            // }
+		}
+        // Serial.print("\n");
+
+        SPO2 = 10 * digito[25] + digito[20];
+		BPM  = 100 * digito[19] + 10 * digito[2] + digito[0];
 	}
 	
 

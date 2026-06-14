@@ -294,11 +294,11 @@ class eHealthClass {
 		//! Stores the real accel value in g's.
 		float accel[3];  
 
-		//! Stores the body position in vector value. 
-		uint8_t position[];
-
 		//!It stores the number of data of the glucometer.
 		uint8_t length;
+
+		//! Stores the body position in vector value. 
+		uint8_t position[];
 };
 
 extern eHealthClass eHealth;

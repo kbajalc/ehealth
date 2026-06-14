@@ -1,9 +1,9 @@
-# e-Health Sensor Platform V2.0 for Arduino and Raspberry Pi
+# e-Health Sensor Platform V2.0 for Arduino, Raspberry Pi
 
 **Biometric / Medical Applications**
 
-> Original documentation: [Cooking Hacks — e-Health Sensor Platform V2.0](https://www.cooking-hacks.com/documentation/tutorials/ehealth-biometric-sensor-platform-arduino-raspberry-pi-medical/index.html)
-> Mirrored/adapted from: [projects-raspberry.com](https://projects-raspberry.com/e-health-sensor-platform-v2-0-for-arduino-and-raspberry-pi-biometric-medical-applications/)
+> Original documentation: Cooking Hacks — e-Health Sensor Platform V2.0 (link defunct)
+> Mirrored/adapted from: projects-raspberry.com (link defunct) — source saved as [V2-POST.html](V2-POST.html)
 
 ---
 
@@ -56,25 +56,21 @@ The e-Health Sensor Platform has been designed by **Cooking Hacks** (the open ha
 
 ### Arduino
 
-1. Download the eHealth library from the [Cooking Hacks website](https://www.cooking-hacks.com/).
-2. Unzip and copy the `eHealth` folder into your Arduino `libraries/` directory.
-3. The `PinChangeInt` library is also required for the SPO2 sensor:
-   ```
-   Arduino/libraries/PinChangeInt/
-   Arduino/libraries/eHealth/
-   ```
-4. Restart the Arduino IDE.
+The libraries are already in this repository:
 
-### Raspberry Pi
+Copy these folders from `arduino/libraries/` into your Arduino sketchbook `libraries/` folder:
 
-The `arduPi` compatibility layer (included in this repository) provides the Arduino-compatible API on Raspberry Pi. Build the `eHdc` binary using Autotools:
-
-```sh
-autoreconf -i
-./configure
-make
-sudo ./eHdc --help
 ```
+Arduino/libraries/eHealth
+Arduino/libraries/PinChangeInt
+Arduino/libraries/SoftwareSerial  (optional)
+```
+
+For full step-by-step instructions including Arduino IDE 2.x, see [V1-NOTES.md § 3](V1-NOTES.md#3-installing-the-libraries-in-arduino-ide-238).
+
+### Raspberry Pi (reference only)
+
+The RPi binary source and `arduPi` compatibility layer live in [`ardupi/`](ardupi/) — treated as read-only reference in this repo. See [`ardupi/README.md`](ardupi/README.md) for build instructions.
 
 ---
 
@@ -815,4 +811,4 @@ eHealth.bloodPressureDataVector[i]; // Access record i (up to 8 records)
 
 *Library developed by Luis Martín & Ahmad Saad — Libelium Comunicaciones Distribuidas S.L.*
 *Licensed under GNU General Public License v3.*
-*Adapted for this repository from the [Cooking Hacks e-Health Sensor Platform V2.0 documentation](https://www.cooking-hacks.com/documentation/tutorials/ehealth-biometric-sensor-platform-arduino-raspberry-pi-medical/index.html).*
+*Adapted for this repository from the Cooking Hacks e-Health Sensor Platform V2.0 documentation (link defunct — source saved as [V2-POST.html](V2-POST.html)).*

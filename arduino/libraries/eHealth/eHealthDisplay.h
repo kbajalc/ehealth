@@ -146,7 +146,7 @@ class eHealthDisplayClass {
 					int desde_y,
 					int ancho,
 					int alto,
-					PROGMEM  prog_uint8_t *array);
+					PROGMEM  uint8_t *array);
 
 		//! It prints a lung in the AirFlow screen. 
 		void printLung(uint8_t onOff);
