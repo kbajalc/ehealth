@@ -111,7 +111,7 @@ If real time image diagnosis is needed a camera can be attached to the 3G module
 
 Data can be sent to the Cloud in order to perform permanent storage or visualized in real time by sending the data directly to a laptop or Smartphone. iPhone and Android applications have been designed in order to easily see the patient’s information.
 
-![e-Health Sensor Platform V2.0 for Arduino and Raspberry Pi](imgs/e-Health-Sensor-Platform-V2.0-for-Arduino-and-Raspberry-Pi.jpg)
+![e-Health Sensor Platform V2.0 for Arduino and Raspberry Pi](imgs/e-Health-Sensor-Platform-V2.0-for-Arduino-and-Raspberry-Pi-2.jpg)
 
 Quick FAQ
 
