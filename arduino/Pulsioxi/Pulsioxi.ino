@@ -58,7 +58,6 @@ void loop() {
   delay(500);
 }
 
-
 // Include always this code when using the pulsioximeter sensor
 void readPulsioximeter() {
   cont ++;
