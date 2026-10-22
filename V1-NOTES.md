@@ -1,7 +1,7 @@
 # e-Health Sensor Platform V1 — Notes & Errata
 
 This document is for users with the **e-Health Sensor Shield V1** kit. The main documentation
-([GUIDE.md](GUIDE.md)) covers the V2.0 hardware. Most of it applies directly to V1, but several
+([README.md](README.md)) covers the V2.0 hardware. Most of it applies directly to V1, but several
 sections need adjustment. This file documents every difference and provides a complete
 Arduino IDE 2.x installation guide for the libraries in this repository.
 
@@ -23,7 +23,7 @@ Arduino IDE 2.x installation guide for the libraries in this repository.
     - [5.2 ECG — No Jumper Selection Needed](#52-ecg--no-jumper-selection-needed)
     - [5.3 EMG — Not Present on V1](#53-emg--not-present-on-v1)
     - [5.4 Blood Pressure — Wrist Cuff, Different API](#54-blood-pressure--wrist-cuff-different-api)
-      - [Key differences from GUIDE.md (V2)](#key-differences-from-guidemd-v2)
+      - [Key differences from README.md (V2)](#key-differences-from-readmemd-v2)
       - [Jumper setup](#jumper-setup)
       - [Wearing the sensor](#wearing-the-sensor)
       - [Taking a measurement](#taking-a-measurement)
@@ -61,7 +61,7 @@ Arduino IDE 2.x installation guide for the libraries in this repository.
 | Glucometer max records | **32** | 8 |
 | Glucometer connection indicator | **"P-C" on screen** | "UUU" on screen |
 
-> **Bottom line for V1 users:** ignore all EMG references in GUIDE.md; use the SPHY jumper and
+> **Bottom line for V1 users:** ignore all EMG references in README.md; use the SPHY jumper and
 > wrist cuff for blood pressure; use the POS jumper for patient position; and use the
 > **V2.0 library** (the one in this repository).
 
@@ -255,14 +255,14 @@ eHealth.numberToMonth(uint8_t month); // Convert month number to name string
 
 **Works on V1 — no wiring change.**
 
-The GUIDE.md SPO2 section applies fully to V1. The sensor has only one possible connection
+The README.md SPO2 section applies fully to V1. The sensor has only one possible connection
 orientation, so plugging it in incorrectly is not possible.
 
 Confirm your sensor model:
 - **No sticker** → Model A → use V2.0 library (this repo) ✓
 - **Yellow sticker** → Model B → you need the V2.3 library (not in this repo)
 
-The code example in GUIDE.md works as-is:
+The code example in README.md works as-is:
 
 ```cpp
 #include <PinChangeInt.h>
@@ -275,7 +275,7 @@ The code example in GUIDE.md works as-is:
 
 **Works on V1 — no wiring change, but ignore the jumper instructions.**
 
-GUIDE.md states:
+README.md states:
 > *"The EMG sensor and the ECG can't work simultaneously. Use the jumpers integrated
 > in the board to use one or the other."*
 
@@ -288,7 +288,7 @@ references. The ECG example code works unchanged.
 
 **⚠ Skip entirely. The EMG sensor and its connector do not exist on the V1 shield.**
 
-All EMG references in GUIDE.md (section *Muscle/Electromyography sensor*,
+All EMG references in README.md (section *Muscle/Electromyography sensor*,
 `getEMG()`, `EMGExampleSerial`, `EMGExampleKST`) are **V2.0 only**.
 
 Do not call `eHealth.getEMG()` on V1 hardware — the pin it reads (A0) is shared with
@@ -300,7 +300,7 @@ ECG and will return ECG data, not EMG.
 
 **Works on V1 but the connector, jumper, sensor position, and API are all different from V2.**
 
-#### Key differences from GUIDE.md (V2)
+#### Key differences from README.md (V2)
 
 | | V1 | V2 |
 |--|----|----|
@@ -395,12 +395,12 @@ void loop() {
 **Works on V1 — but jumpers must be set first.**
 
 Before connecting the body position sensor, set the jumpers on the e-Health shield to the
-**POS gateway position**. GUIDE.md does not mention this V1 jumper requirement.
+**POS gateway position**. README.md does not mention this V1 jumper requirement.
 
 Once the jumpers are set, connect the ribbon cable from the body position sensor to the e-Health
 board. Place the sensor around the chest with the connector facing down.
 
-The library code is identical to GUIDE.md:
+The library code is identical to README.md:
 
 ```cpp
 #include <eHealth.h>
@@ -443,7 +443,7 @@ constants in `getTemperature()`:
 - **RefTension** — measure the voltage between the 3 V red cable and GND with a multimeter
   in voltage mode. Update only if different from the default.
 
-The sensor code in GUIDE.md applies directly to V1:
+The sensor code in README.md applies directly to V1:
 
 ```cpp
 float temperature = eHealth.getTemperature();
@@ -462,7 +462,7 @@ reference voltage that defaults to `0.5`. To calibrate:
 2. Read the actual voltage. Example: `0.498`.
 3. In `eHealth.cpp`, change `0.5` to the measured value (e.g. `0.498`).
 
-The sensor code in GUIDE.md applies directly to V1:
+The sensor code in README.md applies directly to V1:
 
 ```cpp
 float conductance = eHealth.getSkinConductance();
@@ -476,17 +476,17 @@ If `getSkinConductance()` returns `-1`, no patient is connected.
 
 ### 5.8 Glucometer — 32 Records, P-C Indicator
 
-**Works on V1 — no wiring change, but two details differ from GUIDE.md.**
+**Works on V1 — no wiring change, but two details differ from README.md.**
 
-1. **Maximum stored records: 32** (GUIDE.md says 8, which is the V2 limit).
+1. **Maximum stored records: 32** (README.md says 8, which is the V2 limit).
 2. **Connection indicator: "P-C"** — when the glucometer is correctly connected to the e-Health
-   board via the data cable, the glucometer screen shows **"P-C"**. GUIDE.md mentions "UUU"
+   board via the data cable, the glucometer screen shows **"P-C"**. README.md mentions "UUU"
    which is the V2 blood pressure sensor indicator.
 
 **V1 rule:** Only one UART device active at a time — glucometer, blood pressure sensor, GLCD,
 or communication module. Disconnect the others before reading.
 
-The library code is identical to GUIDE.md:
+The library code is identical to README.md:
 
 ```cpp
 #include <eHealth.h>
@@ -514,7 +514,7 @@ void loop() {
 
 The following sensors work **identically on V1 and V2** with no wiring or code changes:
 
-| Sensor | GUIDE.md section | Notes |
+| Sensor | README.md section | Notes |
 |--------|-----------------|-------|
 | Airflow | *Airflow: breathing* | No changes |
 | Body temperature | *Body temperature* | Calibration optional — see [Section 5.6](#56-body-temperature--calibration) |

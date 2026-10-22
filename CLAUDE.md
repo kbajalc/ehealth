@@ -47,7 +47,7 @@ ehealth/
 │   ├── pic/                      # Diagrams and screenshots
 │   └── README.md                 # SUTD-IoT project overview
 │
-├── imgs/                         # Images for GUIDE.md
+├── imgs/                         # Images for README.md
 ├── CLAUDE.md                     # This file — AI assistant guide
 ├── README.md                     # Full e-Health V2.0 documentation (from V2-POST.html)
 ├── MANUAL.md                     # Consolidated API reference (function table, structs, NTC table)
@@ -63,7 +63,7 @@ ehealth/
 ### Kit Version: V1
 
 The owner has the **e-Health Sensor Shield V1**, which has 9 sensors (no EMG). Key V1
-differences from the V2.0 documentation in GUIDE.md:
+differences from the V2.0 documentation in README.md:
 
 | Sensor | V1 status |
 |--------|-----------|
@@ -76,7 +76,7 @@ differences from the V2.0 documentation in GUIDE.md:
 | Glucometer | ✅ Works — UART shared (disconnect other UART devices first); max 32 records; "P-C" on screen when connected |
 | Blood pressure | ⚠️ **Wrist cuff** — set SPHY jumper, call `initBloodPressureSensor(float parameter)` (live measurement, blocks until ON pressed) |
 | Patient position | ⚠️ Works — **set POS jumper** before connecting |
-| **EMG** | ❌ **Not present on V1** — skip all EMG sections in GUIDE.md |
+| **EMG** | ❌ **Not present on V1** — skip all EMG sections in README.md |
 
 See [V1-NOTES.md](V1-NOTES.md) for full details and Arduino IDE installation instructions.
 
